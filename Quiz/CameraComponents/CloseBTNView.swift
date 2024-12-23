@@ -14,7 +14,7 @@ struct CloseBTNView: View {
         HStack {
             Spacer()
             Button {
-                camera.isTaken.toggle()
+                camera.retakePhoto()
             } label: {
                 Image(systemName: "xmark")
                     .foregroundColor(.black)

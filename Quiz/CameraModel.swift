@@ -7,13 +7,30 @@
 
 import Foundation
 import AVFoundation
+import SwiftUI
 
 @Observable
-class CameraModel {
+class CameraModel: NSObject {
+    
+    enum PhotoState {
+        case notTaken
+        case processing
+        case taken(Data)
+    }
+    
     var session = AVCaptureSession()
     var previewLayer = AVCaptureVideoPreviewLayer()
     var output = AVCapturePhotoOutput()
     var isTaken: Bool = false
+    
+    var picTaken: Data? {
+        if case .taken(let data) = photoState {
+            return data
+        }
+        return nil
+    }
+    
+    private(set) var photoState: PhotoState = .notTaken
     
     func requestAccessAndSetup() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -55,6 +72,47 @@ class CameraModel {
             }
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    func takePhoto() {
+        guard case .notTaken = photoState else { return }
+        
+        isTaken.toggle()
+        
+        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        withAnimation {
+            self.photoState = .processing
+        }
+    }
+    
+    func retakePhoto() {
+        isTaken.toggle()
+        
+        Task(priority: .background) {
+            self.session.startRunning()
+            await MainActor.run {
+                self.photoState = .notTaken
+            }
+        }
+    }
+}
+
+extension CameraModel: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: (any Error)?) {
+        if let error {
+            print(error.localizedDescription)
+        }
+        
+        guard let imgData = photo.fileDataRepresentation() else { return }
+        
+        Task(priority: .background) {
+            self.session.stopRunning()
+            await MainActor.run {
+                withAnimation {
+                    self.photoState = .taken(imgData)
+                }
+            }
         }
     }
 }

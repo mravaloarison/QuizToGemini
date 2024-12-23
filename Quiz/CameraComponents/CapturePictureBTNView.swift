@@ -12,7 +12,7 @@ struct CapturePictureBTNView: View {
 
     var body: some View {
         Button {
-            camera.isTaken.toggle()
+            camera.takePhoto()
         } label: {
             ZStack {
                 Circle()
