@@ -2,7 +2,7 @@
 //  CameraView.swift
 //  Quiz
 //
-//  Created by Mami Ravaloarison on 12/11/24.
+//  Created by Mami Ravaloarison on 12/13/24.
 //
 
 import SwiftUI
