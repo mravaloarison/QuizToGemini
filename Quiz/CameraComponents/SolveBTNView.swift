@@ -1,3 +1,11 @@
+//
+//  SolveBTNView.swift
+//  Quiz
+//
+//  Created by Mami Ravaloarison on 12/13/24.
+//
+
+import SwiftUI
 
 struct SolveBTNView: View {
     var body: some View {
@@ -12,8 +20,13 @@ struct SolveBTNView: View {
                     .padding()
             }
             .foregroundColor(.black)
-            .background(.thickMaterial)
+            .background(.white)
             .clipShape(.capsule)
         }
     }
+}
+
+
+#Preview {
+    SolveBTNView()
 }

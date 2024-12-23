@@ -1,32 +1,33 @@
+//
+//  CameraPreview.swift
+//  Quiz
+//
+//  Created by Mami Ravaloarison on 12/13/24.
+//
+
 import AVFoundation
+import SwiftUI
 
 struct CameraPreview: UIViewRepresentable {
-    // 1.
-    class VideoPreviewView: UIView {
-        override class var layerClass: AnyClass {
-             AVCaptureVideoPreviewLayer.self
-        }
-        
-        var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-            return layer as! AVCaptureVideoPreviewLayer
-        }
-    }
-    
-    // 2.
-    let session: AVCaptureSession
-    
-    // 3.
-    func makeUIView(context: Context) -> VideoPreviewView {
-        let view = VideoPreviewView()
-        view.backgroundColor = .black
-        view.videoPreviewLayer.cornerRadius = 0
-        view.videoPreviewLayer.session = session
-        view.videoPreviewLayer.connection?.videoOrientation = .portrait
+    @ObservedObject var camera: CameraModel
 
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: UIScreen.main.bounds)
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: camera.session)
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.frame = view.bounds
+        
+        view.layer.addSublayer(previewLayer)
+        camera.previewLayer = previewLayer
+        
+        camera.startSession()
+        
         return view
     }
     
-    func updateUIView(_ uiView: VideoPreviewView, context: Context) {
-        
+    func updateUIView(_ uiView: UIView, context: Context) {
+        camera.previewLayer?.frame = uiView.bounds
     }
 }
+

@@ -5,9 +5,10 @@
 //  Created by Mami Ravaloarison on 12/13/24.
 //
 
+import SwiftUI
 
 struct CapturePictureBTNView: View {
-    @StateObject var camera = CameraModel()
+    @State var camera: CameraModel
 
     var body: some View {
         Button {
@@ -15,10 +16,10 @@ struct CapturePictureBTNView: View {
         } label: {
             ZStack {
                 Circle()
-                    .fill(.thickMaterial)
+                    .fill(.white)
                     .frame(width: 69, height: 69)
                 Circle()
-                    .stroke(.thickMaterial, lineWidth: 3)
+                    .stroke(.thinMaterial, lineWidth: 3)
                     .frame(width: 81, height: 81)
             }
         }
