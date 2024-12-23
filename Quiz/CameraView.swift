@@ -12,8 +12,11 @@ struct CameraView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            CameraPreview(camera: $camera)
                 .ignoresSafeArea(.all, edges: .all)
+                .onAppear() {
+                    camera.requestAccessAndSetup()
+                }
             
             VStack {
                 if camera.isTaken {
@@ -29,9 +32,6 @@ struct CameraView: View {
                 }
             }
             .padding()
-        }
-        .onAppear() {
-            camera.requestAccessAndSetup()
         }
     }
 }

@@ -2,15 +2,15 @@
 //  CameraPreview.swift
 //  Quiz
 //
-//  Created by Mami Ravaloarison on 12/13/24.
+//  Created by Mami Ravaloarison on 12/22/24.
 //
 
-import AVFoundation
 import SwiftUI
+import AVFoundation
 
 struct CameraPreview: UIViewRepresentable {
-    @ObservedObject var camera: CameraModel
-
+    @Binding var camera: CameraModel
+    
     func makeUIView(context: Context) -> UIView {
         let view = UIView(frame: UIScreen.main.bounds)
         
@@ -21,13 +21,10 @@ struct CameraPreview: UIViewRepresentable {
         view.layer.addSublayer(previewLayer)
         camera.previewLayer = previewLayer
         
-        camera.startSession()
-        
         return view
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        camera.previewLayer?.frame = uiView.bounds
+        
     }
 }
-
