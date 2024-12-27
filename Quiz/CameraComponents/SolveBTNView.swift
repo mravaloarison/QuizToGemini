@@ -8,20 +8,17 @@
 import SwiftUI
 
 struct SolveBTNView: View {
+    @State var task = AIManager()
+    
     var body: some View {
         Button {
-            //
+            task.Test()
         } label: {
-            HStack (spacing: 0) {
-                Text("Solve")
-                    .padding(.horizontal, 20)
-            
-                Image(systemName: "wand.and.stars")
-                    .padding()
-            }
-            .foregroundColor(.black)
-            .background(.white)
-            .clipShape(.capsule)
+            Label(task.isLoading ? "Loading ..." : "Solve", systemImage: "sparkles")
+                .padding()
+                .foregroundStyle(.black)
+                .background(.white)
+                .cornerRadius(15)
         }
     }
 }

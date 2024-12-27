@@ -30,6 +30,8 @@ class CameraModel: NSObject {
         return nil
     }
     
+    var image: UIImage? 
+    
     private(set) var photoState: PhotoState = .notTaken
     
     func requestAccessAndSetup() {
