@@ -7,8 +7,8 @@
 
 import UIKit
 
-struct Constants {
-    static let placeholder = UIImage(systemName: "photo") ?? UIImage()
+enum Constants {
+    static let placeholder = UIImage(systemName: "photo.fill")!
 }
 
 @Observable

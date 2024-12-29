@@ -10,6 +10,7 @@ import SwiftUI
 
 struct UIKitCamera: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
+    @Environment(\.dismiss) private var dismiss
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
@@ -37,6 +38,7 @@ struct UIKitCamera: UIViewControllerRepresentable {
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.selectedImage = image
             }
+            parent.dismiss()
         }
     }
 }
