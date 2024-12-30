@@ -12,7 +12,7 @@ struct QuizApp: App {
     var body: some Scene {
         WindowGroup {
             // CameraView()
-            ContentView(vm: ContentVM())
+            ContentView(vm: ContentVM(), quiz: QuizVM())
         }
     }
 }

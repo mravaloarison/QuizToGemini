@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleGenerativeAI
 
 enum Constants {
     static let placeholder = UIImage(systemName: "photo.fill")!

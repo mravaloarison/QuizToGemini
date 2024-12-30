@@ -9,14 +9,11 @@
 import SwiftUI
 import PhotosUI
 
-
 @Observable
 class ImagePicker {
-    
     var image: Image?
     var images: [Image] = []
   
-  // Change the UpdateEditFormViewModel to match the name of your own ViewModel
     var vm: ContentVM?
     
     func setup(_ vm: ContentVM) {

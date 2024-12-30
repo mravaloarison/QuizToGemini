@@ -6,19 +6,16 @@
 //
 
 import SwiftUI
+import GoogleGenerativeAI
 
 struct GeminiView: View {
-    @State var vm = ContentVM()
+    @StateObject var Quiz = QuizVM()
+    @Binding var isLoading: Bool
     
     var body: some View {
-        Image(uiImage: vm.image)
-            .resizable()
-            .scaledToFit()
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .padding()
+        Text(isLoading ? "Loading ..." : Quiz.res)
+            .fontWeight(.bold)
+            .font(.title3)
+            .multilineTextAlignment(.center)
     }
-}
-
-#Preview {
-    GeminiView()
 }
